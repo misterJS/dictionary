@@ -10,7 +10,7 @@ const suggestionsFilePath = path.join(__dirname, '..', 'suggestions.json');
 const suggestions: Suggestions = JSON.parse(fs.readFileSync(suggestionsFilePath, 'utf-8'));
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('Ekstensi diaktifkan!');
+  console.log('Ekstensi aktip!');
   
   const provider = vscode.languages.registerCompletionItemProvider(
     [
@@ -19,7 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
     ],
     {
       provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-        console.log('Menyediakan item penyelesaian...');
+        console.log('sabar dong...');
         
         const line = document.lineAt(position);
         const textBeforeCursor = line.text.substring(0, position.character).trim();
@@ -36,7 +36,7 @@ export function activate(context: vscode.ExtensionContext) {
           
           for (const [key, value] of Object.entries(suggestions)) {
             if (key.toLowerCase().includes(query.toLowerCase())) {
-              console.log(`Menambahkan item: Key - ${key}, Value - ${value}`);
+              console.log(`Logging: Key - ${key}, Value - ${value}`);
               
               const item = new vscode.CompletionItem(`D:${key}`, vscode.CompletionItemKind.Text);
               item.detail = value;
@@ -46,7 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
           }
         }
         
-        console.log('Total item yang disediakan:', completionItems.length);
+        console.log('Sum:', completionItems.length);
         return completionItems;
       }
     },
@@ -57,5 +57,5 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 export function deactivate() {
-  console.log('Ekstensi dinonaktifkan!');
+  console.log('Ekstensi ora aktip!');
 }
