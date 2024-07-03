@@ -24,7 +24,6 @@ export function activate(context: vscode.ExtensionContext) {
         const line = document.lineAt(position);
         const textBeforeCursor = line.text.substring(0, position.character).trim();
         
-        // Match input within quotes for attributes
         const match = textBeforeCursor.match(/=\s*["']([^"']*)$/);
         const input = match ? match[1] : '';
         
