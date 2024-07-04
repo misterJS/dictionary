@@ -22,10 +22,16 @@ export function activate(context: vscode.ExtensionContext) {
         console.log('sabar dong...');
         
         const line = document.lineAt(position);
-        const textBeforeCursor = line.text.substring(0, position.character).trim();
-        
-        const match = textBeforeCursor.match(/=\s*["']([^"']*)$/);
-        const input = match ? match[1] : '';
+        let input = '';
+
+        // Check the language of the document
+        if (document.languageId === 'html') {
+          const textBeforeCursor = line.text.substring(0, position.character).trim();
+          const match = textBeforeCursor.match(/=\s*["']([^"']*)$/);
+          input = match ? match[1] : '';
+        } else if (document.languageId === 'javascript') {
+          input = line.text.trim();
+        }
         
         console.log(`Input yang diterima: ${input}`);
         
